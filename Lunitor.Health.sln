@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lunitor.Health.Server", "src\Lunitor.Server\Lunitor.Health.Server.csproj", "{CEBBCE2E-9BE6-454A-BE02-4FAAA59E50CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lunitor.Health.Server", "src\Lunitor.Health.Server\Lunitor.Health.Server.csproj", "{CEBBCE2E-9BE6-454A-BE02-4FAAA59E50CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lunitor.Health.Client", "src\Lunitor.Client\Lunitor.Health.Client.csproj", "{75277A75-8CDA-484B-8BAF-2251B0B78B77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lunitor.Health.Client", "src\Lunitor.Health.Client\Lunitor.Health.Client.csproj", "{75277A75-8CDA-484B-8BAF-2251B0B78B77}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lunitor.Health.Shared", "src\Lunitor.Shared\Lunitor.Health.Shared.csproj", "{75E44C51-81B3-4C2C-A86C-34DE8144C376}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lunitor.Health.Shared", "src\Lunitor.Health.Shared\Lunitor.Health.Shared.csproj", "{75E44C51-81B3-4C2C-A86C-34DE8144C376}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5A066FBE-5665-4423-9D0A-D2A01CFA3932}"
 EndProject

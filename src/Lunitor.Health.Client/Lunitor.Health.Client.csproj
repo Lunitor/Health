@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\Lunitor.Health.Shared.csproj" />
+    <ProjectReference Include="..\Lunitor.Health.Shared\Lunitor.Health.Shared.csproj" />
   </ItemGroup>
 
 </Project>

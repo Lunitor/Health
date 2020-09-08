@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Lunitor.Health\Client\Lunitor.Health.Client.csproj" />
-    <ProjectReference Include="..\..\src\Lunitor.Health\Shared\Lunitor.Health.Shared.csproj" />
+    <ProjectReference Include="..\..\src\Lunitor.Health.Client\Lunitor.Health.Client.csproj" />
+    <ProjectReference Include="..\..\src\Lunitor.Health.Shared\Lunitor.Health.Shared.csproj" />
   </ItemGroup>
 
 </Project>
