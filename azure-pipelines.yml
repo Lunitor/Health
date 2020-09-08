@@ -1,0 +1,51 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/*.sln'
+    feedsToUse: 'select'
+    vstsFeed: '650d259c-cad6-4457-aead-eedb5fe6acba'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build $(buildConfiguration)'
+  inputs:
+    command: 'build'
+    projects: '**/*.sln'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test $(buildConfiguration)'
+  inputs:
+    command: 'test'
+    projects: '**/*UnitTests.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish $(buildConfiguration)'
+  inputs:
+    command: 'publish'
+    projects: '**/*.Server.csproj'
+    publishWebProjects: false
+    arguments: '--configuration $(BuildConfiguration) --no-build --output $(Build.ArtifactStagingDirectory)/Deploy'
+    modifyOutputPath: true
+    zipAfterPublish: true
+
+- publish: '$(Build.ArtifactStagingDirectory)/Deploy'
+  artifact: 'Lunitor.Health'

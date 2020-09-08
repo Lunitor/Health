@@ -1,0 +1,62 @@
+@page "/"
+@inject HttpClient Http
+
+<h1>Services</h1>
+
+@if (serviceCheckResults == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Healthy</th>
+                <th>Local Url</th>
+                <th>Local Network Url</th>
+                <th>Public Network Url</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var serviceCheckResult in serviceCheckResults)
+            {
+                <tr>
+                    <td>@serviceCheckResult.Service.Name</td>
+                    <td><span class="oi oi-@(serviceCheckResult.Healthy?"check":"x")" /></td>
+                    <td>
+                        <a href="@serviceCheckResult.Service.LocalUrl">@serviceCheckResult.Service.LocalUrl</a>
+                        @if (!string.IsNullOrWhiteSpace(serviceCheckResult.Service.LocalUrl))
+                        {
+                            <span class="oi oi-@(serviceCheckResult.EndpointHealthy(serviceCheckResult.Service.LocalUrl) ? "check" : "x")" />
+                        }
+                    </td>
+                    <td>
+                        <a href="@serviceCheckResult.Service.LocalNetworkUrl">@serviceCheckResult.Service.LocalNetworkUrl</a>
+                        @if (!string.IsNullOrWhiteSpace(serviceCheckResult.Service.LocalNetworkUrl))
+                        {
+                            <span class="oi oi-@(serviceCheckResult.EndpointHealthy(serviceCheckResult.Service.LocalNetworkUrl) ? "check" : "x")"/>
+                        }
+                    </td>
+                    <td>
+                        <a href="@serviceCheckResult.Service.PublicNetworkUrl">@serviceCheckResult.Service.PublicNetworkUrl</a>
+                        @if (!string.IsNullOrWhiteSpace(serviceCheckResult.Service.PublicNetworkUrl))
+                        {
+                            <span class="oi oi-@(serviceCheckResult.EndpointHealthy(serviceCheckResult.Service.PublicNetworkUrl) ? "check" : "x")" />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private ServiceCheckResult[] serviceCheckResults;
+
+    protected override async Task OnInitializedAsync()
+    {
+        serviceCheckResults = await Http.GetFromJsonAsync<ServiceCheckResult[]>("Service");
+    }
+}
