@@ -1,0 +1,37 @@
+﻿@page "/version"
+@inject HttpClient Http
+
+<h3>Version</h3>
+
+@if (versionInfo == null)
+{
+    <p>Checking version...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-1">Build Id</div>
+        <div class="col-sm-4">@versionInfo.BuildId</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1">Build Branch</div>
+        <div class="col-sm-4">@versionInfo.BuildBranch</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1">Build Commit</div>
+        <div class="col-sm-4">@versionInfo.BuildCommit</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1">Release Id</div>
+        <div class="col-sm-4">@versionInfo.ReleaseId</div>
+    </div>
+}
+
+@code {
+    private VersionInfo versionInfo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        versionInfo = await Http.GetFromJsonAsync<VersionInfo>("api/version");
+    }
+}

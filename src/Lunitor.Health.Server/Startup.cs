@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.VersionEndpoint;
 using Microsoft.Extensions.Hosting;
+using VersionEndpoint.Middleware.Providers;
 
 namespace Lunitor.Health.Server
 {
@@ -36,6 +38,11 @@ namespace Lunitor.Health.Server
             services.Configure<BackgroundCheckerConfiguration>(Configuration.GetSection("BackgroundCheckerConfiguration"));
             services.AddHostedService<BackgroundChecker>();
 
+            services.AddVersionEndpoint(options =>
+            {
+                options.UseJsonFileVersionProvider("version.json");
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -54,6 +61,8 @@ namespace Lunitor.Health.Server
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseVersionEndpoint("/api/version");
 
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
