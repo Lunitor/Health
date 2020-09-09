@@ -16,7 +16,7 @@ steps:
     command: 'restore'
     projects: '**/*.sln'
     feedsToUse: 'select'
-    vstsFeed: '650d259c-cad6-4457-aead-eedb5fe6acba'
+    vstsFeed: '89168acf-a74f-48ae-acbb-004b81944d9d'
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet build $(buildConfiguration)'
