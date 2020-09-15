@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Lunitor.Health.Client\Lunitor.Health.Client.csproj" />
     <ProjectReference Include="..\Lunitor.Health.Shared\Lunitor.Health.Shared.csproj" />
   </ItemGroup>
 
