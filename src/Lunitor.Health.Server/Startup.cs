@@ -29,13 +29,13 @@ namespace Lunitor.Health.Server
             services.AddSingleton<IServiceStore, ServiceStore>();
             services.AddHttpClient<IServiceChecker, ServiceChecker>();
 
-            services.Configure<SmtpConfiguration>(Configuration.GetSection("SmtpConfiguration"));
-            services.Configure<NotificationConfiguration>(Configuration.GetSection("NotificationConfiguration"));
+            services.Configure<SmtpConfiguration>(Configuration.GetSection(nameof(SmtpConfiguration)));
+            services.Configure<NotificationConfiguration>(Configuration.GetSection(nameof(NotificationConfiguration)));
             services.AddSingleton<IEmailBuilder, EmailBuilder>();
             services.AddTransient<ISmtpClient, SmtpClient>();
             services.AddTransient<INotificationService, EmailNotificationService>();
 
-            services.Configure<BackgroundCheckerConfiguration>(Configuration.GetSection("BackgroundCheckerConfiguration"));
+            services.Configure<BackgroundCheckerConfiguration>(Configuration.GetSection(nameof(BackgroundCheckerConfiguration)));
             services.AddHostedService<BackgroundChecker>();
 
             services.AddVersionEndpoint(options =>

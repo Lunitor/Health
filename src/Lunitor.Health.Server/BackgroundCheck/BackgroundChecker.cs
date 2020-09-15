@@ -48,21 +48,16 @@ namespace Lunitor.Health.Server.BackgroundCheck
             _logger.LogInformation($"Start periodic service checking with {_configuration.PeriodicityInMinutes} minute periodicity.");
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Checking services...");
                 var aggregateErros = new List<ServiceCheckResultDto>();
-                foreach (var service in services)
-                {
-                    var checkResult = await _serviceChecker.CheckServiceAsync(service);
-                    if (checkResult.Errors.Count != 0)
-                        aggregateErros.Add(checkResult);
-                }
+
+                _logger.LogInformation("Checking services...");
+                await CheckServices(services, aggregateErros);
                 _logger.LogInformation("Checking services finished");
 
                 if (aggregateErros.Count != 0 && previousCheckNotFoundErrors)
                 {
                     _logger.LogInformation("Sending notification about unhealthy services...");
                     await _notificationService.SendErrorsAsync(aggregateErros);
-
                 }
 
                 previousCheckNotFoundErrors = aggregateErros.Count == 0;
@@ -70,6 +65,16 @@ namespace Lunitor.Health.Server.BackgroundCheck
                 await Task.Delay(MinutesToMiliSeconds(_configuration.PeriodicityInMinutes), stoppingToken);
             }
             _logger.LogInformation("Stop periodic service checking.");
+        }
+
+        private async Task CheckServices(IEnumerable<Shared.Service> services, List<ServiceCheckResultDto> aggregateErros)
+        {
+            foreach (var service in services)
+            {
+                var checkResult = await _serviceChecker.CheckServiceAsync(service);
+                if (checkResult.Errors.Count != 0)
+                    aggregateErros.Add(checkResult);
+            }
         }
 
         private int MinutesToMiliSeconds(double minutes)
